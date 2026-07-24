@@ -2,3 +2,7 @@
 /data/
 /models/
 /.idea/
+/05_yolo_intro/yolov8m.pt
+/05_yolo_intro/yolov8n.pt
+/05_yolo_intro/yolov8m-seg.pt
+/05_yolo_intro/yolov8l-cls.pt
