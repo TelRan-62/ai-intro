@@ -6,3 +6,5 @@
 /05_yolo_intro/yolov8n.pt
 /05_yolo_intro/yolov8m-seg.pt
 /05_yolo_intro/yolov8l-cls.pt
+/05_hw_yolo/yolov8m-seg.pt
+/yolov8m-seg.pt
