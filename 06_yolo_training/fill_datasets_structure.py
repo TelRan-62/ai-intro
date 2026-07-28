@@ -1,5 +1,6 @@
 import cv2
 import numpy as np
+import random
 
 BASE_DIR = 'datasets/'
 BASE_IMAGES = BASE_DIR + 'images/'
@@ -12,15 +13,13 @@ LABELS_VAL = BASE_LABELS + 'val/'
 WIDTH = 256
 HEIGHT = 256
 
+NUM_TRAIN = 500
+NUM_VAL = 100
+
 def make_img_circle(x_center, y_center, radius, path):
     img_arr = np.zeros((HEIGHT, WIDTH, 3), dtype=np.uint8)
     cv2.circle(img_arr, (x_center, y_center), radius, (255, 255, 255), -1)
     cv2.imwrite(path, img_arr)
-
-make_img_circle(100, 100, 30, IMAGES_TRAIN + 'img1.jpg')
-make_img_circle(120, 70, 25, IMAGES_TRAIN + 'img2.jpg')
-make_img_circle(90, 75, 20, IMAGES_TRAIN + 'img3.jpg')
-make_img_circle(110, 95, 40, IMAGES_VAL + 'img1.jpg')
 
 def make_label_circle(x_center, y_center, radius, path):
     x = x_center / WIDTH
@@ -30,7 +29,18 @@ def make_label_circle(x_center, y_center, radius, path):
     with open(path, 'w') as f:
         f.write(f"0 {x:.6f} {y:.6f} {w:.6f} {h:.6f}")
 
-make_label_circle(100, 100, 30, LABELS_TRAIN + 'img1.txt')
-make_label_circle(120, 70, 25, LABELS_TRAIN + 'img2.txt')
-make_label_circle(90, 75, 20, LABELS_TRAIN + 'img3.txt')
-make_label_circle(110, 95, 40, LABELS_VAL + 'img1.txt')
+def random_circle_params():
+    radius = random.randint(1, min(WIDTH, HEIGHT) // 2)
+    x_center = random.randint(radius, WIDTH - radius)
+    y_center = random.randint(radius, HEIGHT - radius)
+    color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+    return x_center, y_center, radius, color
+
+def generate_dataset(count, images_dir, labels_dir):
+    for i in range(count):
+        x, y, radius, color = random_circle_params()
+        make_img_circle(x, y, radius, images_dir + f'img{i}.jpg')
+        make_label_circle(x, y, radius, labels_dir + f'img{i}.txt')
+
+generate_dataset(NUM_TRAIN, IMAGES_TRAIN, LABELS_TRAIN)
+generate_dataset(NUM_VAL, IMAGES_VAL, LABELS_VAL)
