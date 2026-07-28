@@ -1,14 +1,7 @@
 import cv2
 import numpy as np
 import random
-
-BASE_DIR = 'datasets/'
-BASE_IMAGES = BASE_DIR + 'images/'
-BASE_LABELS = BASE_DIR + 'labels/'
-IMAGES_TRAIN = BASE_IMAGES + 'train/'
-LABELS_TRAIN = BASE_LABELS + 'train/'
-IMAGES_VAL = BASE_IMAGES + 'val/'
-LABELS_VAL = BASE_LABELS + 'val/'
+from common import IMAGES_TRAIN, LABELS_TRAIN, IMAGES_VAL, LABELS_VAL, BASE_DIR
 
 WIDTH = 256
 HEIGHT = 256
@@ -39,8 +32,8 @@ def random_circle_params():
 def generate_dataset(count, images_dir, labels_dir):
     for i in range(count):
         x, y, radius, color = random_circle_params()
-        make_img_circle(x, y, radius, images_dir + f'img{i}.jpg')
-        make_label_circle(x, y, radius, labels_dir + f'img{i}.txt')
+        make_img_circle(x, y, radius, images_dir + f'/img{i}.jpg')
+        make_label_circle(x, y, radius, labels_dir + f'/img{i}.txt')
 
-generate_dataset(NUM_TRAIN, IMAGES_TRAIN, LABELS_TRAIN)
-generate_dataset(NUM_VAL, IMAGES_VAL, LABELS_VAL)
+generate_dataset(NUM_TRAIN, BASE_DIR + IMAGES_TRAIN, BASE_DIR + LABELS_TRAIN)
+generate_dataset(NUM_VAL, BASE_DIR + IMAGES_VAL, BASE_DIR + LABELS_VAL)

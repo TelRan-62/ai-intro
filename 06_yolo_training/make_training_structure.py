@@ -1,13 +1,22 @@
 import os
+import yaml
+from common import IMAGES_TRAIN, LABELS_TRAIN, IMAGES_VAL, LABELS_VAL, DATA_YAML, NAMES, BASE_DIR
 
-BASE_DIR = 'datasets/'
-BASE_IMAGES = BASE_DIR + 'images/'
-BASE_LABELS = BASE_DIR + 'labels/'
-IMAGES_TRAIN = BASE_IMAGES + 'train/'
-LABELS_TRAIN = BASE_LABELS + 'train/'
-IMAGES_VAL = BASE_IMAGES + 'val/'
-LABELS_VAL = BASE_LABELS + 'val/'
-os.makedirs(IMAGES_TRAIN, exist_ok=True)
-os.makedirs(LABELS_TRAIN, exist_ok=True)
-os.makedirs(IMAGES_VAL, exist_ok=True)
-os.makedirs(LABELS_VAL, exist_ok=True)
+
+def make_data_yaml(**data):
+    with open(DATA_YAML, 'w') as f:
+        yaml.dump(data, f)
+
+
+os.makedirs(BASE_DIR + IMAGES_TRAIN, exist_ok=True)
+os.makedirs(BASE_DIR + LABELS_TRAIN, exist_ok=True)
+os.makedirs(BASE_DIR +IMAGES_VAL, exist_ok=True)
+os.makedirs(BASE_DIR + LABELS_VAL, exist_ok=True)
+
+make_data_yaml(
+    path=BASE_DIR,
+    train=IMAGES_TRAIN,
+    val=IMAGES_VAL,
+    names=NAMES
+)
+
